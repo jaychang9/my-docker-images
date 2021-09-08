@@ -1,0 +1,18 @@
+FROM openjdk:8-jdk-alpine
+MAINTAINER zhangjie <jaychang1987@gmail.com>
+
+ENV JAVA_OPTS="-Xmx1024M -Xms1024M -Xmn192M -XX:MaxMetaspaceSize=256M -XX:MetaspaceSize=256M -XX:+UseParallelGC -XX:+UseAdaptiveSizePolicy -XX:MaxGCPauseMillis=100 -XX:ErrorFile=/tmp/hs_err_pid%p.log   -Xloggc:/tmp/gc.log -XX:HeapDumpPath=/tmp -XX:+PrintGCDetails -XX:+PrintGCDateStamps -XX:+HeapDumpOnOutOfMemoryError"
+
+COPY ./fonts/* /usr/share/fonts/
+
+# Configure aliyun alpine software source and timezone
+
+RUN set -x \
+    && sed -i "s/http:\/\/dl-cdn.alpinelinux.org/https:\/\/mirrors.aliyun.com/g" /etc/apk/repositories \
+    && apk update \
+    && apk --no-cache add bash bash-completion bash-doc \
+    && apk --no-cache add tzdata curl tini \
+    && apk --no-cahce add font-adobe-100dpi ttf-dejavu fontconfig \
+    && cp /usr/share/zoneinfo/Asia/Shanghai /etc/localtime \
+    && echo "Asia/Shanghai" >  /etc/timezone \
+    && rm -rf /var/cache/apk/*
