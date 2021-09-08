@@ -10,7 +10,7 @@ docker push harbor.chaomeifan.com/library/seata-server:1.0.0
 ```shell
 docker build -t harbor.chaomeifan.com/library/openjdk:8-jdk-alpine:8-jdk-alpine-v0 -f  Dockerfile .
 docker push harbor.chaomeifan.com/library/openjdk:8-jdk-alpine:8-jdk-alpine-v0
-···
+```
 
 
 
